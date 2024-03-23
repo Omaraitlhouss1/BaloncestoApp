@@ -12,11 +12,11 @@ jobs:
           sudo docker build . --file Dockerfile --tag omaral20/webapp:latest
     
       - name: Log into Docker Hub
-        run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "omaral20" --password-stdin
+        run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | sudo  docker login -u "omaral20" --password-stdin
 
       - name: Push Docker images to Docker Hub
         run: |
-          docker push omaraitlhouss1/webapp:latest
+          sudo docker push omaraitlhouss1/webapp:latest
 
       - name: Install SSH client
         run: sudo apt-get install -y openssh-client 
@@ -32,21 +32,21 @@ jobs:
       
       - name: Check if container is running
         run: |
-          if docker ps -a --format '{{.Names}}' | grep -Eq '^webapp$'; then
-            docker stop webapp
+          if sudo docker ps -a --format '{{.Names}}' | grep -Eq '^webapp$'; then
+            sudo docker stop webapp
           fi
 
       - name: Remove existing container (if any)
         run: |
-          if docker ps -a --format '{{.Names}}' | grep -Eq '^webapp$'; then
-            docker rm webapp
+          if sudo docker ps -a --format '{{.Names}}' | grep -Eq '^webapp$'; then
+            sudo docker rm webapp
           fi
 
       - name: Pull latest Docker image
-        run: docker pull omaral20/webapp:latest
+        run: sudo docker pull omaral20/webapp:latest
 
       - name: Run Docker container
-        run: docker run -d -p 8083:8082 --name webapp omaral20/webapp:latest
+        run: sudo docker run -d -p 8083:8082 --name webapp omaral20/webapp:latest
   test:
     needs: build
     runs-on: self-hosted
