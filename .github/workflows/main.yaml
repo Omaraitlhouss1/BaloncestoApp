@@ -7,7 +7,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Build Docker images
+      - name: Build Docker images 
         run: |
           docker build . --file Dockerfile --tag omaraitlhouss1/webapp:latest
     
