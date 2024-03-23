@@ -41,7 +41,6 @@ jobs:
     steps:
     - name: descargar repostorio
       uses: actions/checkout@v3
-    - name: instalar aplicación en Tomcat
     - name: preparar base de datos de prueba
       run: |
         sudo mysql -u root < db/baloncesto.sql
