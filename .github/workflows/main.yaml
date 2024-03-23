@@ -17,18 +17,6 @@ jobs:
       - name: Push Docker images to Docker Hub
         run: |
           sudo docker push omaral20/webapp:latest
-
-      - name: Install SSH client
-        run: sudo apt-get install -y openssh-client 
-
-      - name: SSH into Azure VM and echo message
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            echo "Login successful"
       
       - name: Check if container is running
         run: |
