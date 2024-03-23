@@ -9,7 +9,7 @@ jobs:
 
       - name: Build Docker images 
         run: |
-          docker build . --file Dockerfile --tag omaral20/webapp:latest
+          sudo docker build . --file Dockerfile --tag omaral20/webapp:latest
     
       - name: Log into Docker Hub
         run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "omaral20" --password-stdin
