@@ -7,3 +7,4 @@ logs/
 # Ignore all files in the temp directory
 temp/*
 test
+]
