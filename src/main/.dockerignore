@@ -1,0 +1,11 @@
+# Ignore temporary files
+*.tmp
+*.bak
+
+# Ignore node_modules directory
+node_modules/
+
+# Ignore log files
+logs/
+test
+test/java
