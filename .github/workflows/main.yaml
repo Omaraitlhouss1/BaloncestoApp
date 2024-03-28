@@ -60,14 +60,11 @@ jobs:
     runs-on: self-hosted
     continue-on-error: true
     steps: 
-    - name: calidad-codigo
-      run: |
-        if sudo docker ps -a --format '{{.Names}}' | grep -Eq '^webapp$'; then
-          echo "Container 'webapp' is running."
-        else
-          echo "Container 'webapp' is not running."
-          exit 1  # Exit with non-zero code to indicate failure
-        fi
+      - name: Build and analyze
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=BaloncestoApp -Dsonar.projectName='BaloncestoApp'
         
   deploy:
     needs: qa
