@@ -61,10 +61,14 @@ jobs:
     continue-on-error: true
     steps: 
     - name: calidad-codigo
-     # run:  |
-     #   mvn sonar:sonar -Dsonar.host.url=http://sonarqube:9000 -Dsonar.qualitygate.wait=true -Dsonar.login=admin12 -Dsonar.password=admin12
-
-
+      run: |
+        if sudo docker ps -a --format '{{.Names}}' | grep -Eq '^webapp$'; then
+          echo "Container 'webapp' is running."
+        else
+          echo "Container 'webapp' is not running."
+          exit 1  # Exit with non-zero code to indicate failure
+        fi
+        
   deploy:
     needs: qa
     runs-on: ubuntu-latest
